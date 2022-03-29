@@ -16,7 +16,7 @@ namespace NotePad
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("https://github.com/xanthisafk");
+            System.Diagnostics.Process.Start("https://github.com/xanthisafk/notepad-clone/");
         }
 
         private void button1_Click(object sender, System.EventArgs e)
