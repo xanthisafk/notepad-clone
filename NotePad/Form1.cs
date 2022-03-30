@@ -1,5 +1,7 @@
 ﻿using NotePad.Renderers;
 using System;
+using System.Drawing;
+using System.Drawing.Printing;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
@@ -37,6 +39,33 @@ namespace NotePad
         protected void UpdateTitle()
         {
             this.Text = mainTitle + " - Text Editor";
+        }
+
+        protected void UpdateRowAndColumn()
+        {
+            Point pt;
+            int line, col, index;
+
+            // get the current line
+
+            index = mainTextBox.SelectionStart;
+
+            line = mainTextBox.GetLineFromCharIndex(index);
+
+            // get the caret position in pixel coordinates
+
+            pt = mainTextBox.GetPositionFromCharIndex(index);
+
+            // now get the character index at the start of the line, and
+
+            // subtract from the current index to get the column
+
+            pt.X = 0;
+
+            col = index - mainTextBox.GetCharIndexFromPosition(pt);
+
+            rowStatus.Text = $"Row: {++line}";
+            colStatus.Text = $"Col: {++col}";
         }
 
         protected void NewPage()
@@ -168,8 +197,14 @@ namespace NotePad
             if (sender == mainTextBox)
             {
                 isSaved = false;
+                UpdateRowAndColumn();
             }
 
+        }
+
+        private void mainTextBox_MouseClick(object sender, MouseEventArgs e)
+        {
+            UpdateRowAndColumn();
         }
 
         private void toggleDarkModeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -220,14 +255,14 @@ namespace NotePad
             status.BackColor = control;
             status.ForeColor = text;
 
-            // Tool tip searators
-            toolStripSeparator1.BackColor = control;
-            toolStripSeparator2.BackColor = control;
-            toolStripSeparator3.BackColor = control;
+            //// Tool tip searators
+            //toolStripSeparator1.BackColor = control;
+            //toolStripSeparator2.BackColor = control;
+            //toolStripSeparator3.BackColor = control;
 
-            toolStripSeparator1.ForeColor = controlDark;
-            toolStripSeparator2.ForeColor = controlDark;
-            toolStripSeparator3.ForeColor = controlDark;
+            //toolStripSeparator1.ForeColor = controlDark;
+            //toolStripSeparator2.ForeColor = controlDark;
+            //toolStripSeparator3.ForeColor = controlDark;
 
             topMenu.Renderer = renderer;
             statusHappen.Text = statusText;
@@ -409,6 +444,102 @@ namespace NotePad
 
             mainTextBox.Font = fontsDialog.Font;
 
+        }
+
+        private void printToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PrintDocument doc = new PrintDocument();
+            doc.DocumentName = mainTitle;
+            printDialog.AllowSomePages = true;
+            if (printDialog.ShowDialog() == DialogResult.Cancel)
+            {
+                return;
+            }
+
+
+        }
+
+        private void boldToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+
+            if (mainTextBox.SelectedText == "")
+            {
+                if (boldToolStripMenuItem.Checked)
+                {
+                    boldToolStripMenuItem.Checked = false;
+                    mainTextBox.Font = new Font(mainTextBox.Font, FontStyle.Regular);
+                }
+                else
+                {
+                    boldToolStripMenuItem.Checked = true;
+                    mainTextBox.Font = new Font(mainTextBox.Font, FontStyle.Bold);
+                }
+                return;
+            }
+
+            if (mainTextBox.SelectionFont.Bold)
+            {
+                mainTextBox.SelectionFont = new Font(mainTextBox.Font, FontStyle.Regular);
+            }
+            else
+            {
+                mainTextBox.SelectionFont = new Font(mainTextBox.Font, FontStyle.Bold);
+            }
+        }
+
+        private void italicToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (mainTextBox.SelectedText == "")
+            {
+                if (italicToolStripMenuItem.Checked)
+                {
+                    italicToolStripMenuItem.Checked = false;
+                    mainTextBox.Font = new Font(mainTextBox.Font, FontStyle.Regular);
+                }
+                else
+                {
+                    italicToolStripMenuItem.Checked = true;
+                    mainTextBox.Font = new Font(mainTextBox.Font, FontStyle.Italic);
+                }
+                return;
+            }
+
+            if (mainTextBox.SelectionFont.Italic)
+            {
+                mainTextBox.SelectionFont = new Font(mainTextBox.Font, FontStyle.Regular);
+            }
+            else
+            {
+                mainTextBox.SelectionFont = new Font(mainTextBox.Font, FontStyle.Italic);
+            }
+        }
+
+        private void underlineToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (mainTextBox.SelectedText == "")
+            {
+                if (underlineToolStripMenuItem.Checked)
+                {
+                    underlineToolStripMenuItem.Checked = false;
+                    mainTextBox.Font = new Font(mainTextBox.Font, FontStyle.Regular);
+                }
+                else
+                {
+                    underlineToolStripMenuItem.Checked = true;
+                    mainTextBox.Font = new Font(mainTextBox.Font, FontStyle.Underline);
+                }
+                return;
+            }
+
+            if (mainTextBox.SelectionFont.Underline)
+            {
+                mainTextBox.SelectionFont = new Font(mainTextBox.Font, FontStyle.Regular);
+            }
+            else
+            {
+                mainTextBox.SelectionFont = new Font(mainTextBox.Font, FontStyle.Underline);
+            }
         }
     }
 }
