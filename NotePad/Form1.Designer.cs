@@ -55,19 +55,19 @@
             this.editToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.fontToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.wordWrapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.boldToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.italicToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.underlineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.status = new System.Windows.Forms.StatusStrip();
+            this.rowStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.colStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusHappen = new System.Windows.Forms.ToolStripStatusLabel();
             this.mainTextBox = new System.Windows.Forms.RichTextBox();
             this.fontsDialog = new System.Windows.Forms.FontDialog();
             this.printDialog = new System.Windows.Forms.PrintDialog();
-            this.colStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.rowStatus = new System.Windows.Forms.ToolStripStatusLabel();
-            this.boldToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.italicToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.underlineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.topMenu.SuspendLayout();
             this.status.SuspendLayout();
             this.SuspendLayout();
@@ -154,6 +154,7 @@
             | System.Windows.Forms.Keys.P)));
             this.printPreviewToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
             this.printPreviewToolStripMenuItem.Text = "Print preview";
+            this.printPreviewToolStripMenuItem.Click += new System.EventHandler(this.printPreviewToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -296,10 +297,41 @@
             // 
             // wordWrapToolStripMenuItem
             // 
+            this.wordWrapToolStripMenuItem.Checked = true;
+            this.wordWrapToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.wordWrapToolStripMenuItem.Name = "wordWrapToolStripMenuItem";
             this.wordWrapToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.wordWrapToolStripMenuItem.Text = "Word Wrap";
             this.wordWrapToolStripMenuItem.Click += new System.EventHandler(this.wordWrapToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(177, 6);
+            // 
+            // boldToolStripMenuItem
+            // 
+            this.boldToolStripMenuItem.Name = "boldToolStripMenuItem";
+            this.boldToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.B)));
+            this.boldToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.boldToolStripMenuItem.Text = "Bold";
+            this.boldToolStripMenuItem.Click += new System.EventHandler(this.boldToolStripMenuItem_Click);
+            // 
+            // italicToolStripMenuItem
+            // 
+            this.italicToolStripMenuItem.Name = "italicToolStripMenuItem";
+            this.italicToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
+            this.italicToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.italicToolStripMenuItem.Text = "Italic";
+            this.italicToolStripMenuItem.Click += new System.EventHandler(this.italicToolStripMenuItem_Click);
+            // 
+            // underlineToolStripMenuItem
+            // 
+            this.underlineToolStripMenuItem.Name = "underlineToolStripMenuItem";
+            this.underlineToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.U)));
+            this.underlineToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.underlineToolStripMenuItem.Text = "Underline";
+            this.underlineToolStripMenuItem.Click += new System.EventHandler(this.underlineToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -329,6 +361,18 @@
             this.status.TabIndex = 1;
             this.status.Text = "statusStrip1";
             // 
+            // rowStatus
+            // 
+            this.rowStatus.Name = "rowStatus";
+            this.rowStatus.Size = new System.Drawing.Size(45, 17);
+            this.rowStatus.Text = "Row:  1";
+            // 
+            // colStatus
+            // 
+            this.colStatus.Name = "colStatus";
+            this.colStatus.Size = new System.Drawing.Size(37, 17);
+            this.colStatus.Text = "Col: 1";
+            // 
             // statusHappen
             // 
             this.statusHappen.Name = "statusHappen";
@@ -353,47 +397,6 @@
             // printDialog
             // 
             this.printDialog.UseEXDialog = true;
-            // 
-            // colStatus
-            // 
-            this.colStatus.Name = "colStatus";
-            this.colStatus.Size = new System.Drawing.Size(37, 17);
-            this.colStatus.Text = "Col: 1";
-            // 
-            // rowStatus
-            // 
-            this.rowStatus.Name = "rowStatus";
-            this.rowStatus.Size = new System.Drawing.Size(45, 17);
-            this.rowStatus.Text = "Row:  1";
-            // 
-            // boldToolStripMenuItem
-            // 
-            this.boldToolStripMenuItem.Name = "boldToolStripMenuItem";
-            this.boldToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.B)));
-            this.boldToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.boldToolStripMenuItem.Text = "Bold";
-            this.boldToolStripMenuItem.Click += new System.EventHandler(this.boldToolStripMenuItem_Click);
-            // 
-            // italicToolStripMenuItem
-            // 
-            this.italicToolStripMenuItem.Name = "italicToolStripMenuItem";
-            this.italicToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
-            this.italicToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.italicToolStripMenuItem.Text = "Italic";
-            this.italicToolStripMenuItem.Click += new System.EventHandler(this.italicToolStripMenuItem_Click);
-            // 
-            // underlineToolStripMenuItem
-            // 
-            this.underlineToolStripMenuItem.Name = "underlineToolStripMenuItem";
-            this.underlineToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.U)));
-            this.underlineToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.underlineToolStripMenuItem.Text = "Underline";
-            this.underlineToolStripMenuItem.Click += new System.EventHandler(this.underlineToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(177, 6);
             // 
             // Form1
             // 

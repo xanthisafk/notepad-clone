@@ -9,7 +9,6 @@ using System.Windows.Forms;
 namespace NotePad
 {
     public partial class Form1 : Form
-
     {
         /*
          * Declarations
@@ -180,9 +179,54 @@ namespace NotePad
             }
         }
 
+        protected void PreviewDocuments()
+        {
+            PrintDocument doc = new PrintDocument();
+            doc.PrintPage += doc_PrintPage;
+            doc.DocumentName = mainTitle;
+            PrintPreviewDialog ppd = new PrintPreviewDialog();
+            ppd.Document = doc;
+            ppd.ShowDialog();
+        }
+
+
+        protected void PrintDocuments()
+        {
+            PrintDocument doc = new PrintDocument();
+            doc.PrintPage += doc_PrintPage;
+            doc.DocumentName = mainTitle;
+            printDialog.Document = doc;
+            doc.Print();
+        }
+
+
         /*
          * Events
          */
+
+        private void doc_PrintPage(object sender, PrintPageEventArgs e)
+        {
+            string stringToPrint = mainTextBox.Text;
+            Font font = mainTextBox.Font;
+            int charactersOnPage = 0;
+            int linesPerPage = 0;
+
+            // Sets the value of charactersOnPage to the number of characters
+            // of stringToPrint that will fit within the bounds of the page.
+            e.Graphics.MeasureString(stringToPrint, font,
+                e.MarginBounds.Size, StringFormat.GenericTypographic,
+                out charactersOnPage, out linesPerPage);
+
+            // Draws the string within the bounds of the page
+            e.Graphics.DrawString(stringToPrint, font, Brushes.Black,
+                e.MarginBounds, StringFormat.GenericTypographic);
+
+            // Remove the portion of the string that has been printed.
+            stringToPrint = stringToPrint.Substring(charactersOnPage);
+
+            // Check to see if more pages are to be printed.
+            e.HasMorePages = (stringToPrint.Length > 0);
+        }
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -448,13 +492,17 @@ namespace NotePad
 
         private void printToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            PrintDocument doc = new PrintDocument();
-            doc.DocumentName = mainTitle;
-            printDialog.AllowSomePages = true;
-            if (printDialog.ShowDialog() == DialogResult.Cancel)
+            DialogResult res = printDialog.ShowDialog();
+            if (res == DialogResult.Cancel)
             {
                 return;
             }
+
+            else if (res == DialogResult.OK)
+            {
+                PrintDocuments();
+            }
+
 
 
         }
@@ -540,6 +588,11 @@ namespace NotePad
             {
                 mainTextBox.SelectionFont = new Font(mainTextBox.Font, FontStyle.Underline);
             }
+        }
+
+        private void printPreviewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            PreviewDocuments();
         }
     }
 }
